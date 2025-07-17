@@ -15,7 +15,7 @@ const Slider = () => {
     setCurrentIndex((prevIndex) => (prevIndex === items.length - 1 ? 0 : prevIndex + 1));
   };
 
-  const desktopItemWidth = 380 + 16;
+  const itemWidth = 380 + 16;
 
   return (
     <div className="relative w-full">
@@ -28,9 +28,7 @@ const Slider = () => {
         <div className="overflow-hidden w-[1172px]">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * desktopItemWidth}px)`,
-            }}>
+            style={{ transform: `translateX(-${currentIndex * itemWidth}px)` }}>
             {items.map((testimonial, index) => (
               <div key={`${testimonial.id}-${index}`} className="mr-4 last:mr-0 flex-shrink-0">
                 <Card {...testimonial} />
@@ -44,16 +42,14 @@ const Slider = () => {
           <ChevronRight color="#707070" size={48} />
         </button>
       </div>
-
-      <div className="lg:hidden w-full">
-        <div className="overflow-hidden">
+      
+      <div className="hidden sm:flex lg:hidden items-center justify-center">
+        <div className="overflow-hidden" style={{ width: `${2 * 380 + 16}px` }}>
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * 100}%)`,
-            }}>
+            style={{ transform: `translateX(-${currentIndex * itemWidth}px)` }}>
             {items.map((testimonial, index) => (
-              <div key={`${testimonial.id}-${index}`} className="w-full flex-shrink-0 px-4">
+              <div key={`${testimonial.id}-${index}`} className="mr-4 last:mr-0 flex-shrink-0">
                 <Card {...testimonial} />
               </div>
             ))}
@@ -61,36 +57,41 @@ const Slider = () => {
         </div>
       </div>
 
-      <div className="lg:hidden flex justify-center items-center gap-4 mt-6">
-        <button onClick={handlePrev} className="bg-white p-2 rounded-full border shadow">
-          <ChevronLeft color="#707070" size={48} />
+      <div className="sm:hidden w-full flex justify-center">
+        <div className="overflow-hidden w-[380px] max-w-full">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 380}px)` }}>
+            {items.map((testimonial, index) => (
+              <div key={`${testimonial.id}-${index}`} className="w-[380px] flex-shrink-0 px-2">
+                <Card {...testimonial} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center gap-4 mt-8">
+        <button onClick={handlePrev} className="lg:hidden bg-white p-2 rounded-full border shadow">
+          <ChevronLeft color="#707070" size={24} />
         </button>
+        
         <div className="flex justify-center space-x-2">
           {testimonialsData.map((_, index) => (
-            <div
+            <button
               key={index}
-              className={`w-2.5 h-2.5 rounded-full ${
-                currentIndex % testimonialsData.length === index ? 'bg-[#252B42]' : 'bg-[#B6B1B1]'
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentIndex % testimonialsData.length === index
+                  ? 'bg-[#252B42] scale-125'
+                  : 'bg-[#B6B1B1]'
               }`}
             />
           ))}
         </div>
-        <button onClick={handleNext} className="bg-white p-2 rounded-full border shadow">
+        
+        <button onClick={handleNext} className="lg:hidden bg-white p-2 rounded-full border shadow">
           <ChevronRight color="#707070" size={24} />
         </button>
-      </div>
-
-      <div className="hidden lg:flex justify-center items-center gap-3 mt-8">
-        {testimonialsData.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all ${
-              currentIndex % testimonialsData.length === index
-                ? 'bg-[#252B42] scale-125'
-                : 'bg-[#B6B1B1]'
-            }`}
-          />
-        ))}
       </div>
     </div>
   );
