@@ -77,7 +77,7 @@ const Slider = () => {
             {items.map((testimonial, index) => (
               <div
                 key={`${testimonial.id}-${index}`}
-                className="w-full flex-shrink-0 px-4 min-[540px]:px-18">
+                className="w-full flex-shrink-0 px-4 min-[480px]:px-7 min-[540px]:px-[18px] ">
                 <Card {...testimonial} />
               </div>
             ))}
