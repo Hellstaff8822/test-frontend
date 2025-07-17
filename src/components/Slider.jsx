@@ -42,8 +42,13 @@ const Slider = () => {
           <ChevronRight color="#707070" size={48} />
         </button>
       </div>
-      
-      <div className="hidden sm:flex lg:hidden items-center justify-center">
+
+      <div className="hidden sm:flex lg:hidden items-center justify-center gap-4">
+        <button
+          onClick={handlePrev}
+          className="bg-white w-14 h-14 rounded-full border border-[#d1cfcf] flex items-center justify-center flex-shrink-0 z-10 hover:scale-110 transition-all">
+          <ChevronLeft color="#707070" size={32} />
+        </button>
         <div className="overflow-hidden" style={{ width: `${2 * 380 + 16}px` }}>
           <div
             className="flex transition-transform duration-500 ease-in-out"
@@ -55,15 +60,24 @@ const Slider = () => {
             ))}
           </div>
         </div>
+        <button
+          onClick={handleNext}
+          className="bg-white w-14 h-14 rounded-full border border-[#d1cfcf] flex items-center justify-center flex-shrink-0 z-10 hover:scale-110 transition-all">
+          <ChevronRight color="#707070" size={32} />
+        </button>
       </div>
 
-      <div className="sm:hidden w-full flex justify-center">
-        <div className="overflow-hidden w-[380px] max-w-full">
+      <div className="sm:hidden w-full">
+        <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 380}px)` }}>
+            style={{
+              transform: `translateX(-${currentIndex * 100}%)`,
+            }}>
             {items.map((testimonial, index) => (
-              <div key={`${testimonial.id}-${index}`} className="w-[380px] flex-shrink-0 px-2">
+              <div
+                key={`${testimonial.id}-${index}`}
+                className="w-full flex-shrink-0 px-4 min-[540px]:px-18">
                 <Card {...testimonial} />
               </div>
             ))}
@@ -75,11 +89,11 @@ const Slider = () => {
         <button onClick={handlePrev} className="lg:hidden bg-white p-2 rounded-full border shadow">
           <ChevronLeft color="#707070" size={24} />
         </button>
-        
         <div className="flex justify-center space-x-2">
           {testimonialsData.map((_, index) => (
             <button
               key={index}
+              onClick={() => setCurrentIndex(testimonialsData.length + index)}
               className={`w-3 h-3 rounded-full transition-all ${
                 currentIndex % testimonialsData.length === index
                   ? 'bg-[#252B42] scale-125'
@@ -88,7 +102,6 @@ const Slider = () => {
             />
           ))}
         </div>
-        
         <button onClick={handleNext} className="lg:hidden bg-white p-2 rounded-full border shadow">
           <ChevronRight color="#707070" size={24} />
         </button>

@@ -12,7 +12,6 @@ function App() {
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-
         }}>
         <div className="w-full text-center flex flex-col items-center ">
           <h1
